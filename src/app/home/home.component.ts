@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ZonasService } from '../services/zonas.service';
 
 @Component({
   selector: 'app-home',
@@ -6,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  public zonas:any[]=[];
+  constructor(public servicioZona:ZonasService) {
+    this.servicioZona.consultarZonas().subscribe(respuesta=>{
+      this.zonas=respuesta
+      console.log(respuesta)
+    })
+  }
 
   ngOnInit(): void {
   }
