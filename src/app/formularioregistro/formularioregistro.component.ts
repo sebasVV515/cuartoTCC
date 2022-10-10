@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MercanciasService } from '../services/mercancias.service';
+import { ZonasService } from '../services/zonas.service';
 
 @Component({
   selector: 'app-formularioregistro',
@@ -10,18 +11,26 @@ import { MercanciasService } from '../services/mercancias.service';
 export class FormularioregistroComponent implements OnInit {
 
   formulario!:FormGroup;
+  controlDeZona:boolean=true;
+  datosZonas:any[]=[];
 
   constructor(
     public formBuilder:FormBuilder,
-    public servicioMercancias:MercanciasService
+    public servicioMercancias:MercanciasService,
+    public servicioZonas:ZonasService
     ) { }
 
   ngOnInit(): void {
     this.formulario=this.inicializarFormulario()
+    this.servicioZonas.consultarZonas().subscribe(respuesta=>{
+      this.datosZonas=respuesta.map((zona:any)=>{
+        return {nombre:zona.nombre,disponible:zona.disponible}
+      })
+    })
   }
 
   public analizarFormulario():void{
-    console.log(this.formulario.value)
+    // console.log(this.formulario.value)
   }
 
   public inicializarFormulario():FormGroup{
@@ -44,9 +53,34 @@ export class FormularioregistroComponent implements OnInit {
 
   public buscarMercancia(){
     let iup=this.formulario.value.iup
-    this.servicioMercancias.buscarMercanciaId(iup).subscribe(respuesta=>{
-      console.log(respuesta)
-    })
+    this.servicioMercancias.buscarMercanciaId(iup).subscribe(
+      respuesta=>{
+        this.formulario.patchValue({
+          tiporemitente:respuesta.tipoRemitente,
+          idremitente:respuesta.idRemitente,
+          nombreremitente:respuesta.nombreRemitente,
+          deptoremitente:respuesta.deptoRemitente,
+          municipioremitente:respuesta.municipioRemitente,
+          direccionremitente:respuesta.direccionRemitente,
+          tipodestinatario:respuesta.tipoDestinatario,
+          iddestinatario:respuesta.idDestinatario,
+          nombredestinatario:respuesta.nombreDestinatario,
+          deptodestinatario:respuesta.deptoDestinatario,
+          municipiodestinatario:respuesta.municipioDestinatario,
+          direcciondestinatario:respuesta.direccionDestinatario
+        })
+        this.formulario.disable()
+        this.formulario.controls['iup'].enable()
+        this.controlDeZona=false
+      },
+      error=>{
+        this.controlDeZona=true
+        this.formulario.enable()
+        this.formulario=this.inicializarFormulario()
+        console.log(error.error)
+      }
+    )
+
   }
 
 }

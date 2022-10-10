@@ -11,7 +11,6 @@ export class HomeComponent implements OnInit {
   constructor(public servicioZona:ZonasService) {
     this.servicioZona.consultarZonas().subscribe(respuesta=>{
       this.zonas=respuesta
-      console.log(respuesta)
     })
   }
 
