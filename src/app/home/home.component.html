@@ -1,42 +1,51 @@
 <app-menu></app-menu>
 <div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-6">
+    <div class="col-12">
       <app-formularioregistro></app-formularioregistro>
     </div>
-    <div class="col-6">
-      <div class="row">
-        <div class="col-12">
-          <h2>Disponibilidad:</h2>
-            <div class="row row-cols-1 row-cols-md-2">
-              <div class="col my-3" *ngFor="let zona of zonas" >
-                <div class="card h-100">
-                  <h2 class="text-center">{{zona.nombre}}</h2>
-                  <!-- <h3 class="text-center text-muted">Disponible: {{zona.disponible}} u3</h3> -->
-                  <app-grafica></app-grafica>
-                </div>
-              </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <h2>Disponibilidad en el Cuarto de Soluciones:</h2>
+            <div class="grafica">
+              <app-grafica></app-grafica>
             </div>
-        </div>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <h2>Mercancias en cuarto:</h2>
-          <div class="g-3" *ngFor="let dato of zonas">
-            <h2 class="text-center">{{dato.nombre}}</h2>
-            <div class="row row-cols-1 row-cols-md-2">
-              <div class="col my-3" *ngFor="let mercancia of dato.mercancias">
-                <div class="card h-100">
-                  <h2 class="text-center text-muted">{{mercancia.nombre}}</h2>
-                  <h3 class="text-center text-muted">Volumen: {{mercancia.volumen}} u3</h3>
-                  <h3 class="text-center text-muted">IUP: {{mercancia.iup}}</h3>
-                  <button class="btn btn-primary m-2" type="button">Retirar del cuarto</button>
-                </div>
+      <div class="mercancias">
+        <h2>Mercancias en cuarto:</h2>
+        <div class="g-3" *ngFor="let dato of zonas">
+          <h2 class="text-center">{{dato.nombre}}</h2>
+          <div class="tabla" *ngFor="let mercancia of dato.mercancias">
+            <h3 class="text-center text-muted">IUP: {{mercancia.iup}}</h3>
+            <h3 class="text-muted">Nombre: {{mercancia.nombre}}</h3>
+            <h3 class="text-center text-muted">Volumen: {{mercancia.volumen}} u3</h3>
+            <button (click)="retirarMercancia(mercancia.iup)" class="btn m-2 btnmio" type="button"><i class="bi bi-trash"></i></button>
+          </div>
+          <div class="">
+            <div class="my-3" >
+              <div class="h-100">
+                
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- <div class="col-12">
+        <h2>Mercancias en cuarto:</h2>
+        <div class="g-3" *ngFor="let dato of zonas">
+          <h2 class="text-center">{{dato.nombre}}</h2>
+          <div class="row row-cols-1 row-cols-md-2">
+            <div class="col my-3" *ngFor="let mercancia of dato.mercancias">
+              <div class="card h-100">
+                <h2 class="text-center text-muted">{{mercancia.nombre}}</h2>
+                <h3 class="text-center text-muted">Volumen: {{mercancia.volumen}} u3</h3>
+                <h3 class="text-center text-muted">IUP: {{mercancia.iup}}</h3>
+                <button (click)="retirarMercancia(mercancia.iup)" class="btn btn-primary m-2" type="button">Retirar del cuarto</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
     </div>
   </div>
 </div>

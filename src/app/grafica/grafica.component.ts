@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
+import { ZonasService } from '../services/zonas.service';
 
 @Component({
   selector: 'app-grafica',
@@ -7,53 +8,51 @@ import { Color, ScaleType, LegendPosition } from '@swimlane/ngx-charts';
   styleUrls: ['./grafica.component.css']
 })
 export class GraficaComponent{
+  public disponibleZonas:any[]=[];
 
-  single = [
-    {
-      "name": "Lleno",
-      "value": 8940000
-    },
-    {
-      "name": "Vacio",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    },
-      {
-      "name": "UK",
-      "value": 6200000
-    }
-  ];
-  view: [number,number] = [460, 400];
+  constructor(public servicioZona:ZonasService) {
+    this.servicioZona.consultarZonas().subscribe(respuesta=>{
+      this.disponibleZonas=respuesta.map((zona:any)=>{
+        return {
+          name:zona.nombre,
+          series:[
+            {
+              name:"Disponible",
+              value:zona.disponible
+            },
+            {
+              name:"Ocupado",
+              value:zona.capacidad-zona.disponible
+            }
+          ]   
+        }
+      })
+    })
+  }
 
-  gradient: boolean = true;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
-  legendPosition: LegendPosition=LegendPosition.Right;
+  get multi(){
+    return this.disponibleZonas
+  }
+
+  view: [number,number] = [750, 400];
+
+  showXAxis: boolean = false;
+  showYAxis: boolean = true;
+  gradient: boolean = false;
+  showLegend: boolean = false;
+  showXAxisLabel: boolean = false;
+  yAxisLabel: string = 'Zonas';
+  showYAxisLabel: boolean = false;
+  xAxisLabel: string = 'Capacidad %';
 
   colorScheme : Color = {
     name: 'colorestcc',
     selectable: true,
     group: ScaleType.Ordinal,
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#5AA454', '#A10A28']
   };
 
-  constructor() {
-    // Object.assign(this, { single });
-  }
-
-  onSelect(data:any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data:any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data:any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  onSelect(event:any) {
+    console.log(event);
   }
 }

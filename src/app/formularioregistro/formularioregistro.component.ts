@@ -24,30 +24,39 @@ export class FormularioregistroComponent implements OnInit {
     this.formulario=this.inicializarFormulario()
     this.servicioZonas.consultarZonas().subscribe(respuesta=>{
       this.datosZonas=respuesta.map((zona:any)=>{
-        return {nombre:zona.nombre,disponible:zona.disponible}
+        return {nombre:zona.nombre,id:zona.id}
       })
     })
   }
 
   public analizarFormulario():void{
-    // console.log(this.formulario.value)
+    let datosMercancia=this.formulario.value
+    datosMercancia.volumen=10
+    datosMercancia.nombre="Mercancia Prueba"
+    datosMercancia.zona={id:this.formulario.value.zona}
+    console.log(datosMercancia)
+    this.servicioMercancias.ingresarMercancia(datosMercancia).subscribe(respuesta=>{
+      console.log(respuesta)
+      window.location.reload()
+    })
   }
 
   public inicializarFormulario():FormGroup{
     return this.formBuilder.group({
       iup:['',[Validators.required/*,Validators.minLength(6)*/]],
-      tiporemitente:['',[Validators.required]],
-      idremitente:['',[Validators.required]],
-      nombreremitente:['',[Validators.required]],
-      deptoremitente:['',[Validators.required]],
-      municipioremitente:['',[Validators.required]],
-      direccionremitente:['',[Validators.required]],
-      tipodestinatario:['',[Validators.required]],
-      iddestinatario:['',[Validators.required]],
-      nombredestinatario:['',[Validators.required]],
-      deptodestinatario:['',[Validators.required]],
-      municipiodestinatario:['',[Validators.required]],
-      direcciondestinatario:['',[Validators.required]],
+      tipoRemitente:['',[Validators.required]],
+      idRemitente:['',[Validators.required]],
+      nombreRemitente:['',[Validators.required]],
+      deptoRemitente:['',[Validators.required]],
+      municipioRemitente:['',[Validators.required]],
+      direccionRemitente:['',[Validators.required]],
+      tipoDestinatario:['',[Validators.required]],
+      idDestinatario:['',[Validators.required]],
+      nombreDestinatario:['',[Validators.required]],
+      deptoDestinatario:['',[Validators.required]],
+      municipioDestinatario:['',[Validators.required]],
+      direccionDestinatario:['',[Validators.required]],
+      zona:['1',[Validators.required]]
     })
   }
 
@@ -76,11 +85,9 @@ export class FormularioregistroComponent implements OnInit {
       error=>{
         this.controlDeZona=true
         this.formulario.enable()
-        this.formulario=this.inicializarFormulario()
+        // this.formulario.reset()
         console.log(error.error)
       }
     )
-
   }
-
 }

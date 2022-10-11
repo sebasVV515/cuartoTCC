@@ -1,0 +1,24 @@
+.grafica{
+    margin: 0 auto;
+    width: 40%;
+}
+.tabla{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.mercancias{
+   width: 70%;
+   margin: 0 auto;
+}
+.mercancias h3{
+    width: 25%;
+}
+.btnmio{
+    height: 50px;
+    width: 50px;
+    /* background-color: brown; */
+}
+.btnmio:hover{
+    background-color: rgb(183, 56, 56);
+}
