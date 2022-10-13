@@ -6,7 +6,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    border-bottom: 1px solid black;
+}
+.btabla{
+    border: 1px solid black;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    border-radius: 5px;
 }
 .mercancias{
    width: 70%;

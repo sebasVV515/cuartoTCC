@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
           <div class="col-6">
             <div class="row">
               <div class="col-12">
@@ -173,7 +173,9 @@
               <div *ngIf="formulario.get('direcciondestinatario')?.touched && formulario.get('direccionDestinatario')?.errors?.['required']" class="form-text text-danger fw-bold">Este campo es obligatorio.</div>
             </div>
           </div>
-          <button *ngIf="controlDeZona" type="submit" class="btn btn-primary w-100" >Registrar</button>
+          <div class="col-12">
+            <button *ngIf="controlDeZona" type="submit" class="btn d-block mx-auto text-center btn-warning w-25" >Registrar</button>
+          </div>
         </div>
       </form>
     </div>

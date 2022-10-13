@@ -34,7 +34,6 @@ export class FormularioregistroComponent implements OnInit {
     datosMercancia.zona={id:this.formulario.value.zona}
     console.log(datosMercancia)
     this.servicioMercancias.ingresarMercancia(datosMercancia).subscribe(respuesta=>{
-      console.log(respuesta)
       window.location.reload()
     })
   }

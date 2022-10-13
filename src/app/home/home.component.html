@@ -4,7 +4,7 @@
     <div class="col-12">
       <app-formularioregistro></app-formularioregistro>
     </div>
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-12 text-center">
         <h2>Disponibilidad en el Cuarto de Soluciones:</h2>
             <div class="grafica">
@@ -12,21 +12,16 @@
             </div>
       </div>
       <div class="mercancias">
+        <br>
         <h2>Mercancias en cuarto:</h2>
-        <div class="g-3" *ngFor="let dato of zonas">
-          <h2 class="text-center">{{dato.nombre}}</h2>
+        <br>
+        <div class="g-3 btabla" *ngFor="let dato of zonas">
+          <h2 class="text-center text-danger">{{dato.nombre}}</h2>
           <div class="tabla" *ngFor="let mercancia of dato.mercancias">
-            <h3 class="text-center text-muted">IUP: {{mercancia.iup}}</h3>
-            <h3 class="text-muted text-center">{{mercancia.nombre}}</h3>
-            <h3 class="text-center text-muted">Volumen: {{mercancia.volumen}} u3</h3>
+            <h3 class="text-center text-warning">IUP: {{mercancia.iup}}</h3>
+            <h3 class="text-center">{{mercancia.nombre}}</h3>
+            <h3 class="text-center">Volumen: {{mercancia.volumen}} u³</h3>
             <button (click)="retirarMercancia(mercancia.iup,dato.nombre)" class="btn m-2 btnmio" type="button"><i class="bi bi-trash"></i></button>
-          </div>
-          <div class="">
-            <div class="my-3" >
-              <div class="h-100">
-                
-              </div>
-            </div>
           </div>
         </div>
       </div>
