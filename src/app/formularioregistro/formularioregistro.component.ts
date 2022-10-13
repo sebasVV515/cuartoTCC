@@ -31,8 +31,6 @@ export class FormularioregistroComponent implements OnInit {
 
   public analizarFormulario():void{
     let datosMercancia=this.formulario.value
-    datosMercancia.volumen=10
-    datosMercancia.nombre="Mercancia Prueba"
     datosMercancia.zona={id:this.formulario.value.zona}
     console.log(datosMercancia)
     this.servicioMercancias.ingresarMercancia(datosMercancia).subscribe(respuesta=>{
@@ -41,9 +39,12 @@ export class FormularioregistroComponent implements OnInit {
     })
   }
 
+
   public inicializarFormulario():FormGroup{
     return this.formBuilder.group({
       iup:['',[Validators.required/*,Validators.minLength(6)*/]],
+      nombre:['',[Validators.required]],
+      volumen:['',[Validators.required]],
       tipoRemitente:['',[Validators.required]],
       idRemitente:['',[Validators.required]],
       nombreRemitente:['',[Validators.required]],
@@ -65,22 +66,25 @@ export class FormularioregistroComponent implements OnInit {
     this.servicioMercancias.buscarMercanciaId(iup).subscribe(
       respuesta=>{
         this.formulario.patchValue({
-          tiporemitente:respuesta.tipoRemitente,
-          idremitente:respuesta.idRemitente,
-          nombreremitente:respuesta.nombreRemitente,
-          deptoremitente:respuesta.deptoRemitente,
-          municipioremitente:respuesta.municipioRemitente,
-          direccionremitente:respuesta.direccionRemitente,
-          tipodestinatario:respuesta.tipoDestinatario,
-          iddestinatario:respuesta.idDestinatario,
-          nombredestinatario:respuesta.nombreDestinatario,
-          deptodestinatario:respuesta.deptoDestinatario,
-          municipiodestinatario:respuesta.municipioDestinatario,
-          direcciondestinatario:respuesta.direccionDestinatario
+          nombre:respuesta.nombre,
+          volumen:respuesta.volumen,
+          tipoRemitente:respuesta.tipoRemitente,
+          idRemitente:respuesta.idRemitente,
+          nombreRemitente:respuesta.nombreRemitente,
+          deptoRemitente:respuesta.deptoRemitente,
+          municipioRemitente:respuesta.municipioRemitente,
+          direccionRemitente:respuesta.direccionRemitente,
+          tipoDestinatario:respuesta.tipoDestinatario,
+          idDestinatario:respuesta.idDestinatario,
+          nombreDestinatario:respuesta.nombreDestinatario,
+          deptoDestinatario:respuesta.deptoDestinatario,
+          municipioDestinatario:respuesta.municipioDestinatario,
+          direccionDestinatario:respuesta.direccionDestinatario
         })
         this.formulario.disable()
         this.formulario.controls['iup'].enable()
         this.controlDeZona=false
+        console.log(respuesta)
       },
       error=>{
         this.controlDeZona=true

@@ -9,6 +9,8 @@ import { ZonasService } from '../services/zonas.service';
 })
 export class HomeComponent implements OnInit {
   public zonas:any[]=[];
+  public mensajes:boolean=false;
+  public respuestas!:boolean;
   constructor(
     public servicioZona:ZonasService,
     public servicioMercancia:MercanciasService
@@ -17,12 +19,25 @@ export class HomeComponent implements OnInit {
       this.zonas=respuesta
     })
   }
+  public confirmar(){
+    
+    }
 
-  public retirarMercancia(id:any):void{
-    this.servicioMercancia.retirarMercancia(id).subscribe(respuesta=>{
-      window.location.reload()
-    })
+  public retirarMercancia(id:any,zona:any):void{
+    var r = confirm("¿Seguro que desea retirar la mercancia "+id+" de la "+zona+"?");
+    if (r == true) {
+      this.servicioMercancia.retirarMercancia(id).subscribe(respuesta=>{
+        window.location.reload()
+      })
+    } 
+    // else {
+    //     alert("\'codgio de redireccion (false)\'");
+    // }
+    
   }
+
+  
+ 
 
   ngOnInit(): void {
   }

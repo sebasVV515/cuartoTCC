@@ -6,6 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    border-bottom: 1px solid black;
 }
 .mercancias{
    width: 70%;
@@ -13,11 +14,11 @@
 }
 .mercancias h3{
     width: 25%;
+    line-height: 60px;
 }
 .btnmio{
     height: 50px;
     width: 50px;
-    /* background-color: brown; */
 }
 .btnmio:hover{
     background-color: rgb(183, 56, 56);

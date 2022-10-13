@@ -17,9 +17,9 @@
           <h2 class="text-center">{{dato.nombre}}</h2>
           <div class="tabla" *ngFor="let mercancia of dato.mercancias">
             <h3 class="text-center text-muted">IUP: {{mercancia.iup}}</h3>
-            <h3 class="text-muted">Nombre: {{mercancia.nombre}}</h3>
+            <h3 class="text-muted text-center">{{mercancia.nombre}}</h3>
             <h3 class="text-center text-muted">Volumen: {{mercancia.volumen}} u3</h3>
-            <button (click)="retirarMercancia(mercancia.iup)" class="btn m-2 btnmio" type="button"><i class="bi bi-trash"></i></button>
+            <button (click)="retirarMercancia(mercancia.iup,dato.nombre)" class="btn m-2 btnmio" type="button"><i class="bi bi-trash"></i></button>
           </div>
           <div class="">
             <div class="my-3" >
